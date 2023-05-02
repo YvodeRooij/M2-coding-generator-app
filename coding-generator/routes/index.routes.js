@@ -13,20 +13,31 @@ router.get("/", (req, res, next) => {
 //signup
 //insert middleware here
 router.post("/signup", async (req, res, next) => {
-  const salt = await bcryptjs.genSalt(saltRounds);
-  const hash = await bcryptjs.hash(req.body.password, salt);
+  // retreive info from form
+  const { email, password } = req.body;
 
-  const user = new User({ email: req.body.email, password: hash });
-  await user.save();
+  // check if user already exists
+  try {
+    const userFromDatabase = await User.findOne({ email });
+    if (userFromDatabase) {
+      return res.status(400).send("User already exists, go back to previous page");
+    }
 
-  res.render("my-overview.hbs");
+    const salt = await bcryptjs.genSalt(saltRounds);
+    const hash = await bcryptjs.hash(password, salt);
+
+    const user = new User({ email: req.body.email, password: hash });
+    await user.save();
+
+    res.redirect("/my-overview");
+  } catch (error) {
+    next(error);
+  }
 });
 
 router.get("/my-overview", (req, res, next) => {
   res.render("my-overview");
 });
-
-// check if user already exists
 
 router.get("/login", (req, res, next) => {
   try {
@@ -35,6 +46,10 @@ router.get("/login", (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+router.post("/login", (req, res) => {
+  console.log("SESSION =====> ", req.session);
 });
 
 // insert isLoggedIn

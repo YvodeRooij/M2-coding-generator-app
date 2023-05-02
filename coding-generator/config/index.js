@@ -27,6 +27,26 @@ module.exports = (app) => {
   app.use(express.urlencoded({ extended: false }));
   app.use(cookieParser());
 
+  // require session
+  const session = require("express-session");
+
+  // create session
+  module.exports = (app) => {
+    app.use(
+      session({
+        secret: process.env.SESS_SECRET,
+        resave: true,
+        saveUninitialized: false,
+        cookie: {
+          sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+          secure: process.env.NODE_ENV === "production",
+          httpOnly: true,
+          maxAge: 60000, // 60 * 1000 ms === 1 min
+        },
+      })
+    );
+  };
+
   // Normalizes the path to the views folder
   app.set("views", path.join(__dirname, "..", "views"));
   // Sets the view engine to handlebars
