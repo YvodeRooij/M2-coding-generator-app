@@ -16,11 +16,17 @@ router.post("/signup", async (req, res, next) => {
   const salt = await bcryptjs.genSalt(saltRounds);
   const hash = await bcryptjs.hash(req.body.password, salt);
 
-  const user = new User({ username: req.body.email, password: hash });
+  const user = new User({ email: req.body.email, password: hash });
   await user.save();
 
-  res.send("signed up");
+  res.render("my-overview.hbs");
 });
+
+router.get("/my-overview", (req, res, next) => {
+  res.render("my-overview");
+});
+
+// check if user already exists
 
 router.get("/login", (req, res, next) => {
   try {
