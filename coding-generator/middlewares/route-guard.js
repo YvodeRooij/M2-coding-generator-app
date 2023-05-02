@@ -1,4 +1,5 @@
 const isLoggedIn = (req, res, next) => {
+  console.log(req);
   if (req.session.userFromDatabase) {
     next();
     return;
@@ -7,6 +8,7 @@ const isLoggedIn = (req, res, next) => {
 };
 
 const isLoggedOut = (req, res, next) => {
+  console.log(req);
   if (!req.session.userFromDatabase) {
     next();
     return;

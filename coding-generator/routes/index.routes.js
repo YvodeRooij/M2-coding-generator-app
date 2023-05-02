@@ -11,6 +11,21 @@ router.get("/", (req, res, next) => {
 });
 
 //signup
+router.get(
+  "/signup",
+  (req, res, next) => {
+    console.log(req.session);
+    next();
+  },
+  (req, res, next) => {
+    try {
+      res.render("auth/signup");
+    } catch (err) {
+      console.log("you have the following error at signup:", err);
+    }
+  }
+);
+
 //insert middleware here
 router.post("/signup", async (req, res, next) => {
   // retreive info from form
@@ -48,15 +63,38 @@ router.get("/login", (req, res, next) => {
   }
 });
 
-router.post("/login", (req, res) => {
-  console.log("SESSION =====> ", req.session);
-});
+router.post("/login", async (req, res) => {
+  // get info from form
+  const { email, password } = req.body;
+  console.log("req.body is:", req.body);
 
-// insert isLoggedIn
-router.get("/signup", (req, res, next) => {
+  if (email === "" || password === "") {
+    res.render("auth/login", {
+      errorMessage: "Please enter both, email and password to login.",
+    });
+    return;
+  }
+
+  const userFromDatabase = await User.findOne({ email });
+  console.log("user from database: ", userFromDatabase);
   try {
-    res.render("auth/signup");
-  } catch (err) {}
+    if (!userFromDatabase) {
+      console.log("email or password incorrect");
+      res.render("auth/login", { errorMessage: "Email is not registrered, try another email-adress" });
+    } else if (bcryptjs.compareSync(password, userFromDatabase.password)) {
+      console.log("password correct");
+      res.render("my-overview", { userFromDatabase });
+    } else {
+      console.log("only password incorrect");
+      res.render("auth/login", { errorMessage: "Incorrect password." });
+    }
+
+    req.session.userFromDatabase = { email: userFromDatabase.email };
+    res.redirect("/my-overview");
+  } catch (err) {
+    console.log("catch from login");
+  }
+  console.log("SESSION =====> ", req.session);
 });
 
 module.exports = router;
