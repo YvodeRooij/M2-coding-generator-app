@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
+
 const User = require("../models/User.model");
 const Question = require("../models/Question.model");
+
 const bcryptjs = require("bcryptjs");
 const saltRounds = 12;
 const { isLoggedIn, isLoggedOut } = require("../middlewares/route-guard.js");
@@ -100,12 +102,13 @@ router.post("/login", async (req, res) => {
 
 
 //get question route
-router.get('/createQuestion' ,isLoggedIn, (req, res, next) => {
+router.get('/createQuestion' , (req, res, next) => {
   try {
-    res.render("questions/createQuestion");
     console.log("successfully rendered question page");
+    res.render("questions/createQuestion");
+    
   } catch (err) {
-    next(err);
+    console.log('error while geting question page');
   }
 });
 
@@ -131,7 +134,31 @@ try{
  }
 });
 
+// Play get route
+router.get('/play',  (req, res, next) => {
 
+  Question.find()
+  .then(questionsFromDb => {
+    console.log('retrieved questions',questionsFromDb );
+    res.render('questions/play', {questions: questionsFromDb});
+
+  })
+  .catch(error => {
+    console.log('error getting questions', error);
+  })
+
+
+  // const question = Question.find();
+  // try {
+  //   console.log("successfully rendered play page", question);
+
+  //   res.render("questions/play", {question: question);
+    
+  // } catch (err) {
+  //   console.log('error while rendering play page');
+  // }
+
+});
 
 
 

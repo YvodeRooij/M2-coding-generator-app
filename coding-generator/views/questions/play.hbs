@@ -1,0 +1,24 @@
+<h1>Play</h1>
+<h2>Choose the right answer and continue to the next question!</h2>
+
+{{#each questions}}
+
+
+<div class="question-description">
+    <h3>{{description}}</h3>
+  </div>
+  <div>
+    <button type="button" id="correct">{{correct}}</button>
+  </div>
+   <div>
+    <button type="button" id="correct">{{false1}}</button>
+  </div>
+   <div>
+    <button type="button" id="correct">{{false2}}</button>
+  </div>
+   <div>
+    <button type="button" id="correct">{{false3}}</button>
+  </div>
+
+
+  {{/each}}

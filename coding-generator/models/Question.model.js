@@ -5,28 +5,26 @@ const questionSchema = new Schema(
     {
         description:{
             type: String,
-            required: true,
-            unique: true,
+            required: true
+            
         },
         correct:{
             type: String,
-            required: true,
-            unique: true
+            required: true
         },
         false1:{
             type: String,
-            required: true,
-            unique: true
+            required: true
         },
         false2:{
             type: String,
-            required: true,
-            unique: true
+            required: true
+            
         },
         false3:{
             type: String,
-            required: true,
-            unique: true
+            required: true
+            
         }
     }
 );
