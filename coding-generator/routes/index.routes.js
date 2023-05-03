@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../models/User.model");
+const Question = require("../models/Question.model");
 const bcryptjs = require("bcryptjs");
 const saltRounds = 12;
 const { isLoggedIn, isLoggedOut } = require("../middlewares/route-guard.js");
@@ -96,5 +97,42 @@ router.post("/login", async (req, res) => {
   }
   console.log("SESSION =====> ", req.session);
 });
+
+
+//get question route
+router.get('/createQuestion' ,isLoggedIn, (req, res, next) => {
+  try {
+    res.render("questions/createQuestion");
+    console.log("successfully rendered question page");
+  } catch (err) {
+    next(err);
+  }
+});
+
+//Post Question route
+router.post("/createQuestion", async (req, res, next) => {
+  // retreive info from question form
+  const { description, correct, false1, false2, false3 } = req.body;
+  console.log(req.body);
+try{
+   const question = new Question({
+     description: req.body.description, 
+     correct: req.body.correct,
+     false1: req.body.false1,
+     false2: req.body.false2, 
+     false3: req.body.false3 
+    });
+   await question.save();
+
+   res.redirect("/my-overview");
+}
+ catch(error){
+  console.log('could not post question', error)
+ }
+});
+
+
+
+
 
 module.exports = router;
