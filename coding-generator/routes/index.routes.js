@@ -134,31 +134,44 @@ try{
  }
 });
 
-// Play get route
-router.get('/play',  (req, res, next) => {
+// View questons get route
+router.get('/view-questions',  (req, res, next) => {
 
   Question.find()
   .then(questionsFromDb => {
     console.log('retrieved questions',questionsFromDb );
-    res.render('questions/play', {questions: questionsFromDb});
+    res.render('questions/view-questions', {questions: questionsFromDb});
 
   })
   .catch(error => {
     console.log('error getting questions', error);
   })
+});
 
+router.get('/update/:questionId', (req, res, next)=>{
+const { questionId } = req.params;
+Question.findById(questionId)
+   .then(questionToEdit => {
+    console.log(questionToEdit);
+    res.render('questions/update', { question : questionToEdit})
+   })
+   .catch(error=>{
+    console.log('rendering get /update/:questionId did not work', error)
+   });
+});
 
-  // const question = Question.find();
-  // try {
-  //   console.log("successfully rendered play page", question);
+router.post('/update/:questionId', (req, res, next)=>{
+  const { questionId } = req.params;
+  const { description, correct, false1 ,false2 ,false3} = req.body;
 
-  //   res.render("questions/play", {question: question);
-    
-  // } catch (err) {
-  //   console.log('error while rendering play page');
-  // }
+  Question.findByIdAndUpdate(
+    questionId, { description, correct, false1 ,false2 ,false3 }, {new:true})
+    .then (updatedQuestion => res.redirect('/view-questions'))
+    .catch(error => console.log('updating went wrong', error));
+
 
 });
+
 
 
 

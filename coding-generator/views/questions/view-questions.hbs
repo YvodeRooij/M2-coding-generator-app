@@ -1,5 +1,6 @@
-<h1>Play</h1>
-<h2>Choose the right answer and continue to the next question!</h2>
+<h1>View questions</h1>
+
+<hr>
 
 {{#each questions}}
 
@@ -19,6 +20,7 @@
    <div>
     <button type="button" id="correct">{{false3}}</button>
   </div>
-
-
+<hr>
+<a href="/update/{{_id}}">Update Question</a>
+<hr>
   {{/each}}
