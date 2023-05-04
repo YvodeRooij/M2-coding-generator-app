@@ -166,10 +166,17 @@ router.post('/update/:questionId', (req, res, next)=>{
 
   Question.findByIdAndUpdate(
     questionId, { description, correct, false1 ,false2 ,false3 }, {new:true})
-    .then (updatedQuestion => res.redirect('/view-questions'))
+    .then (() => res.redirect('/view-questions'))
     .catch(error => console.log('updating went wrong', error));
+});
 
+router.post('/update/:questionId/delete', (req, res, next) => {
+  const { questionId } = req.params;
+  console.log('should delete')
 
+  Question.findByIdAndDelete(questionId)
+  .then(() => res.redirect('/view-questions'))
+  .catch(error => console.log('could not delete question', error));
 });
 
 

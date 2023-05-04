@@ -22,5 +22,10 @@
   </div>
 <hr>
 <a href="/update/{{_id}}">Update Question</a>
+
+<form action="/update/{{_id}}/delete" method="POST">
+      <button>Delete Question</button>
+    </form>
+
 <hr>
   {{/each}}
