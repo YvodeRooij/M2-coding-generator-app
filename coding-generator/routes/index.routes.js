@@ -139,6 +139,10 @@ router.get('/view-questions',  (req, res, next) => {
 
   Question.find()
   .then(questionsFromDb => {
+    
+
+
+
     console.log('retrieved questions',questionsFromDb );
     res.render('questions/view-questions', {questions: questionsFromDb});
 

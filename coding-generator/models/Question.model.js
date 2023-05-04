@@ -11,6 +11,7 @@ const questionSchema = new Schema(
         correct:{
             type: String,
             required: true
+            
         },
         false1:{
             type: String,
