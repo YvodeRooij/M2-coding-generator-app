@@ -211,7 +211,7 @@ console.log('answers',answerArr)
 const randmArr = answerArr.sort(()=>
 Math.random() - 0.5);
 console.log(randomQuestion);
- console.log(randmArr);
+console.log(randmArr);
 
 
 
