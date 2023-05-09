@@ -191,7 +191,7 @@ try{
  const questionFromDb = await Question.find();
  const randomIndex = Math.floor(Math.random()*questionFromDb.length);
  const randomQuestion = questionFromDb[randomIndex];
- //const descriptionFromDb = questionFroDb.description;
+ 
  const answerArr = [
   randomQuestion.correct,
   randomQuestion.false1,
@@ -200,36 +200,18 @@ try{
 ];
 console.log('answers',answerArr)
 
-
-// function shuffle(array) {
-//   array.sort(() => Math.random() - 0.5);
- 
-// };
-
-//const randomArr = shuffle(answerArr);
-
 const randmArr = answerArr.sort(()=>
 Math.random() - 0.5);
-console.log(randomQuestion);
+console.log(answerArr);
 console.log(randmArr);
-
-
-
-
- //console.log(random);
-//  let descriptionText = document.getElementById("descriptionText");
-// descriptionText.innerHTML = descriptionFromDb;
-//  = descriptionFromDb;
  res.render('questions/play', {randomQuestion, randmArr} );
-//, {randomAnswers}
+
 } catch(error){
   console.log('could not get description from db to /play', error);
-
 }
-
-
-
 });
+
+
  
 
 

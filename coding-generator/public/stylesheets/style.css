@@ -20,7 +20,9 @@ h1 {
   width: 700px;
   height: 250px;
   border-style: solid;
-  
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 6px;
 }
 #answers {
@@ -37,6 +39,9 @@ h1 {
   border-style: solid;
   border-radius: 6px;
   margin-right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 #answer2 {
   width: 200px;
@@ -44,6 +49,9 @@ h1 {
   border-style: solid;
   border-radius: 6px;
   margin-right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 #answer3 {
@@ -52,6 +60,9 @@ h1 {
   border-style: solid;
   border-radius: 6px;
   margin-right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
 #answer4 {
@@ -60,5 +71,8 @@ h1 {
   border-style: solid;
   border-radius: 6px;
   margin-right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
 }
