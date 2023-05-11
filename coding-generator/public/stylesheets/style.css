@@ -78,3 +78,8 @@ h1 {
   justify-content: center;
 
 }
+
+#questioneer {
+display: flex;
+justify-content: center;
+}

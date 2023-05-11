@@ -17,6 +17,10 @@ const userSchema = new Schema(
     admin: {
       type: Boolean,
     },
+    answeredQuestion: 
+       [{type: Schema.Types.ObjectId, ref:"Question"}]
+      
+    
   
   },
   {
