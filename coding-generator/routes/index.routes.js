@@ -231,6 +231,8 @@ router.get('/test/:questionId/:answer', isLoggedIn, async (req,res)=>{
 });
 
 router.get(`/correct`, isLoggedIn,(req,res)=>{
+  
+
 
   res.render(`questions/correct`);
 });
