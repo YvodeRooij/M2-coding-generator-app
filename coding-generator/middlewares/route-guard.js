@@ -1,19 +1,20 @@
 const isLoggedIn = (req, res, next) => {
-  console.log(req);
-  if (req.session.userFromDatabase) {
-    next();
-    return;
+  
+  if (!req.session.userFromDatabase) {
+    return res.redirect("/auth/login");
+   
   }
-  res.redirect("/my-overview");
+  next();
+  
 };
 
 const isLoggedOut = (req, res, next) => {
-  console.log(req);
-  if (!req.session.userFromDatabase) {
-    next();
-    return;
+  
+  if (req.session.userFromDatabase) {
+    
+    return res.redirect('/');
   }
-  res.redirect("/auth/login");
+  next();
 };
 
 module.exports = {

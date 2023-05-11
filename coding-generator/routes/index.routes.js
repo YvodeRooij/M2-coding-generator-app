@@ -13,14 +13,13 @@ router.get("/", (req, res, next) => {
   res.render("index");
 });
 
+
+//  (req, res, next) => {
+//     console.log(req.session);
+//     next();
+//   },
 //signup
-router.get(
-  "/signup",
-  (req, res, next) => {
-    console.log(req.session);
-    next();
-  },
-  (req, res, next) => {
+router.get("/signup", isLoggedOut, (req, res, next) => {
     try {
       res.render("auth/signup");
     } catch (err) {
@@ -30,7 +29,7 @@ router.get(
 );
 
 //insert middleware here
-router.post("/signup", async (req, res, next) => {
+router.post("/signup",  isLoggedOut, async (req, res, next) => {
   // retreive info from form
   const { email, password } = req.body;
 
@@ -53,11 +52,11 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
-router.get("/my-overview", (req, res, next) => {
+router.get("/my-overview",isLoggedIn, (req, res, next) => {
   res.render("my-overview");
 });
 
-router.get("/login", (req, res, next) => {
+router.get("/login",isLoggedOut, (req, res, next) => {
   try {
     res.render("auth/login");
     console.log("successfully rendered login page");
@@ -66,7 +65,7 @@ router.get("/login", (req, res, next) => {
   }
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", isLoggedOut, async (req, res) => {
   // get info from form
   const { email, password } = req.body;
   console.log("req.body is:", req.body);
@@ -102,7 +101,7 @@ router.post("/login", async (req, res) => {
 
 
 //get question route
-router.get('/createQuestion' , (req, res, next) => {
+router.get('/createQuestion',isLoggedIn, (req, res, next) => {
   try {
     console.log("successfully rendered question page");
     res.render("questions/createQuestion");
@@ -113,7 +112,7 @@ router.get('/createQuestion' , (req, res, next) => {
 });
 
 //Post Question route
-router.post("/createQuestion", async (req, res, next) => {
+router.post("/createQuestion", isLoggedIn, async (req, res, next) => {
   // retreive info from question form
   const { description, correct, false1, false2, false3 } = req.body;
   console.log(req.body);
@@ -135,7 +134,7 @@ try{
 });
 
 // View questons get route
-router.get('/view-questions',  (req, res, next) => {
+router.get('/view-questions', isLoggedIn, (req, res, next) => {
 
   Question.find()
   .then(questionsFromDb => {
@@ -152,7 +151,7 @@ router.get('/view-questions',  (req, res, next) => {
   })
 });
 
-router.get('/update/:questionId', (req, res, next)=>{
+router.get('/update/:questionId', isLoggedIn, (req, res, next)=>{
 const { questionId } = req.params;
 Question.findById(questionId)
    .then(questionToEdit => {
@@ -164,7 +163,7 @@ Question.findById(questionId)
    });
 });
 
-router.post('/update/:questionId', (req, res, next)=>{
+router.post('/update/:questionId', isLoggedIn, (req, res, next)=>{
   const { questionId } = req.params;
   const { description, correct, false1 ,false2 ,false3} = req.body;
 
@@ -174,7 +173,7 @@ router.post('/update/:questionId', (req, res, next)=>{
     .catch(error => console.log('updating went wrong', error));
 });
 
-router.post('/update/:questionId/delete', (req, res, next) => {
+router.post('/update/:questionId/delete', isLoggedIn, (req, res, next) => {
   const { questionId } = req.params;
   console.log('should delete')
 
@@ -185,7 +184,7 @@ router.post('/update/:questionId/delete', (req, res, next) => {
 
 
 
-router.get('/play', async (req,res,next) => {
+router.get('/play', isLoggedIn, async (req,res,next) => {
 
 try{
  const questionFromDb = await Question.find();
@@ -211,7 +210,7 @@ Math.random() - 0.5);
 }
 });
 
-router.get('/test/:questionId/:answer',async (req,res)=>{
+router.get('/test/:questionId/:answer', isLoggedIn, async (req,res)=>{
   const {questionId, answer} = req.params;
   console.log('made it');
   try{
@@ -231,14 +230,21 @@ router.get('/test/:questionId/:answer',async (req,res)=>{
 
 });
 
-router.get(`/correct`, (req,res)=>{
+router.get(`/correct`, isLoggedIn,(req,res)=>{
 
-  res.render(`questions/correct`)
-})
-router.get('/wrong', (req,res)=>{
-  res.render('questions/wrong')
-}
-)
+  res.render(`questions/correct`);
+});
+
+router.get('/wrong', isLoggedIn, (req,res)=>{
+  res.render('questions/wrong');
+});
+
+router.post('/logout', isLoggedIn, (req, res, next) => {
+  req.session.destroy(err => {
+    if (err) next(err);
+    res.redirect('/');
+  });
+});
  
 
 
