@@ -24,6 +24,8 @@ h1 {
   align-items: center;
   justify-content: center;
   border-radius: 6px;
+  box-shadow: 0 0 10px 2px;
+  text-align: center;
 }
 #answers {
   margin-top: 5px;
@@ -36,7 +38,7 @@ h1 {
 #answer1 {
   width: 200px;
   height: 75px;
-  border-style: solid;
+  
   border-radius: 6px;
   margin-right: 2px;
   display: flex;
@@ -46,7 +48,7 @@ h1 {
 #answer2 {
   width: 200px;
   height: 75px;
-  border-style: solid;
+  
   border-radius: 6px;
   margin-right: 2px;
   display: flex;
@@ -57,7 +59,7 @@ h1 {
 #answer3 {
   width: 200px;
   height: 75px;
-  border-style: solid;
+  
   border-radius: 6px;
   margin-right: 2px;
   display: flex;
@@ -68,7 +70,7 @@ h1 {
 #answer4 {
   width: 200px;
   height: 75px;
-  border-style: solid;
+  
   border-radius: 6px;
   margin-right: 2px;
   display: flex;

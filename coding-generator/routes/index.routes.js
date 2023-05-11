@@ -200,11 +200,11 @@ try{
 ];
 console.log('answers',answerArr)
 
-const randmArr = answerArr.sort(()=>
+const answersRandomized = answerArr.sort(()=>
 Math.random() - 0.5);
-console.log(answerArr);
-console.log(randmArr);
- res.render('questions/play', {randomQuestion, randmArr} );
+// console.log(answerArr);
+// console.log(answersRandomized);
+ res.render('questions/play', {randomQuestion, answersRandomized} );
 
 } catch(error){
   console.log('could not get description from db to /play', error);
