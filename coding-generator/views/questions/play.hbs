@@ -10,19 +10,29 @@
 
 </div>
 <div id="answers">
-    
-<div id="answer1">
+    <div id="answer1">
+        <form action="/test/{{randomQuestion._id}}/{{answersRandomized.[0]}}" method="get">    
 
-<button class="btn btn-outline-success">{{answersRandomized.[0]}}</button>
+<button class="btn btn-outline-success" id="button1" >{{answersRandomized.[0]}}</button>
+
+</form>
+
 </div>
 <div id="answer2">
-<button class="btn btn-outline-success">{{answersRandomized.[1]}}</button>
+    <form action="/test/{{randomQuestion._id}}/{{answersRandomized.[1]}}" method="get"> 
+<button class="btn btn-outline-success" id="button2">{{answersRandomized.[1]}}</button>
+    </form>
 </div>
+
 <div id="answer3">
-<button class="btn btn-outline-success">{{answersRandomized.[2]}}</button>
+    <form action="/test/{{randomQuestion._id}}/{{answersRandomized.[2]}}" method="get"> 
+<button class="btn btn-outline-success" id="button3">{{answersRandomized.[2]}}</button>
+    </form>
 </div>
 <div id="answer4">
-<button class="btn btn-outline-success">{{answersRandomized.[3]}}</button>
+    <form action="/test/{{randomQuestion._id}}/{{answersRandomized.[3]}}" method="get"> 
+<button class="btn btn-outline-success" id="button4">{{answersRandomized.[3]}}</button>
+    </form>
 </div>
 
 </div>

@@ -198,7 +198,7 @@ try{
   randomQuestion.false2,
   randomQuestion.false3
 ];
-console.log('answers',answerArr)
+// console.log('answers',answerArr);
 
 const answersRandomized = answerArr.sort(()=>
 Math.random() - 0.5);
@@ -211,7 +211,34 @@ Math.random() - 0.5);
 }
 });
 
+router.get('/test/:questionId/:answer',async (req,res)=>{
+  const {questionId, answer} = req.params;
+  console.log('made it');
+  try{
+    const findQuestion = await Question.findById(questionId);
 
+    if(findQuestion.correct===answer){
+
+      res.redirect('/correct')
+    }else{
+      res.redirect('/wrong')
+    }
+
+  }catch(error){
+    console.log(error, 'finding question went wrong');
+  }
+
+
+});
+
+router.get(`/correct`, (req,res)=>{
+
+  res.render(`questions/correct`)
+})
+router.get('/wrong', (req,res)=>{
+  res.render('questions/wrong')
+}
+)
  
 
 

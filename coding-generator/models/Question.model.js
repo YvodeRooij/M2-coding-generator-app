@@ -10,7 +10,8 @@ const questionSchema = new Schema(
         },
         correct:{
             type: String,
-            required: true
+            required: true, 
+            
         
         },
         false1:{
