@@ -82,4 +82,37 @@ h1 {
 #questioneer {
 display: flex;
 justify-content: center;
+align-items: center;
+flex-direction: column;
+margin-top: 10px;
+
+}
+#questioneer div{
+  display: flex;
+  
+  margin: 10px ;
+  }
+
+  #questioneer button{
+display: flex;
+justify-content: center;
+align-items: center;
+
+
+  }
+#view-questions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+}
+#question {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 500px;
+  border-radius: 6px;
+  box-shadow: 0 0 10px 2px;
+  text-align: center;
+  margin: 10px;
 }
