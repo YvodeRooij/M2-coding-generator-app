@@ -1,32 +1,40 @@
-// https://developer.mozilla.org/en-US/docs/Web/API/Window/DOMContentLoaded_event
+// const axios = require("axios");
+
 document.addEventListener("DOMContentLoaded", () => {
   console.log("coding-generator JS imported successfully!");
 });
 
-//DRY
-// const answeredButton1 = document.getElementById('button1');
-// answeredButton1.addEventListener("click", confirmAnswer);
+const generateBtn = document.getElementById("generate-text-button");
+const descriptionArea = document.getElementById("description");
+const correctArea = document.getElementById("correct");
+const incorrectArea1 = document.getElementById("false1");
+const incorrectArea2 = document.getElementById("false2");
+const incorrectArea3 = document.getElementById("false3");
 
-// const answeredButton2 = document.getElementById('button2');
-// answeredButton2.addEventListener("click", confirmAnswer);
+generateBtn.addEventListener("click", async () => {
+  try {
+    const questionResponse = await axios.post("/api/generate-text");
+    console.log("Question response from API", questionResponse.data);
 
-// const answeredButton3 = document.getElementById('button3');
-// answeredButton3.addEventListener("click", confirmAnswer);
+    // Set the generated question in the description area
+    descriptionArea.value = questionResponse.data.description;
 
+    // Now, send a second request to generate the correct answer
+    const answerResponse = await axios.post("/api/generate-correct-answer", { question: questionResponse.data.description });
+    console.log("Answer response from API", answerResponse.data);
 
-// const answeredButton4 = document.getElementById('button4');
-// answeredButton4.addEventListener("click", confirmAnswer);
+    // Set the generated answer in the correct area
+    correctArea.value = answerResponse.data.correct;
 
-// function confirmAnswer (event){
-//   event.preventDefault();
-//   console.log('buttons pressed');
-  
-// };
+    const incorrectAnswers1 = await axios.post("/api/generate-false-answer", { question: questionResponse.data.description });
+    incorrectArea1.value = incorrectAnswers1.data.incorrect1;
 
+    const incorrectAnswers2 = await axios.post("/api/generate-false-answer", { question: questionResponse.data.description });
+    incorrectArea2.value = incorrectAnswers2.data.incorrect2;
 
-
-// const questionFroDb = await Question.findOne();
-//  const descriptionFromDb = questionFroDb.description;
-//  console.log(descriptionFromDb);
-//  let descriptionText = document.getElementById("descriptionText");
-// descriptionText.innerHTML = descriptionFromDb;
+    const incorrectAnswers3 = await axios.post("/api/generate-false-answer", { question: questionResponse.data.description });
+    incorrectArea3.value = incorrectAnswers3.data.incorrect3;
+  } catch (err) {
+    console.log("error when getting API data", err);
+  }
+});

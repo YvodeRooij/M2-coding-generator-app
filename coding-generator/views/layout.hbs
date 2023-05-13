@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{appTitle}}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"></script>
 
     <link rel="stylesheet" href="/stylesheets/style.css" />
@@ -13,55 +15,56 @@
 
   <body>
     <nav class="navbar navbar-expand-lg bg-body-tertiary" style="background-color: #e3f2fd;">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Live to Learn</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="/login">Login</a>
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Live to Learn</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link" href="/login">Login</a>
 
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/signup">Sign up</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/my-overview">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/createQuestion">Create Problems</a>
+            </li>
+            <li class="nav-item">
 
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/signup">Sign up</a>
-          </li>
-          <li class="nav-item">
-          <a class="nav-link" href="/my-overview">Profile</a>
-          </li>
-          <li class="nav-item">
-          <a class="nav-link" href="/createQuestion">Create Problems</a>
-          </li>
-          <li class="nav-item">
+              <a class="nav-link" href="/view-questions">View Questions</a>
+            </li>
+            <li class="nav-item">
 
-          <a class="nav-link" href="/view-questions">View Questions</a>
-          </li>
-          <li class="nav-item">
+              <a class="nav-link" href="/play">Play</a>
+            </li>
+            <li><form id="logout-form" action="/logout" method="POST">
+                <button class="nav-link">Logout</button>
 
-          <a class="nav-link" href="/play">Play</a>
-          </li>
-          <li><form id="logout-form" action="/logout" method="POST">
-    <button class="nav-link">Logout</button>
-    
-  </form></li>
-        
-        
-      </ul>
-    </div>
-  </div>
-</nav>
-    
+              </form></li>
+
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     {{{body}}}
 
-   
-  
-
-
-    <script src="/js/script.js"></script>
-    <scriptsrc="/coding-generator/routes/index.routes.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="/coding-generator/routes/index.routes.js"></script>
 
   </body>
 
