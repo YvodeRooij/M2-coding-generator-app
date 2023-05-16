@@ -106,6 +106,10 @@ align-items: center;
   justify-content: center;
 
 }
+#view-questions div{
+  display: flex;
+  justify-content: center;
+}
 #question {
   display: flex;
   flex-direction: column;

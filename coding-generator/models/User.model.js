@@ -17,7 +17,7 @@ const userSchema = new Schema(
     admin: {
       type: Boolean,
     },
-    answeredQuestion: 
+    answeredQuestions: 
        [{type: Schema.Types.ObjectId, ref:"Question"}]
       
     

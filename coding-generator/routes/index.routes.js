@@ -29,7 +29,7 @@ router.get("/signup", isLoggedOut, (req, res, next) => {
 
 //insert middleware here
 router.post("/signup", isLoggedOut, async (req, res, next) => {
-  // retreive info from form
+  // reprieve info from form
   const { email, password } = req.body;
 
   // check if user already exists
@@ -83,6 +83,7 @@ router.post("/login", isLoggedOut, async (req, res) => {
       console.log("email or password incorrect");
       res.render("auth/login", { errorMessage: "Email is not registrered, try another email-adress" });
     } else if (bcryptjs.compareSync(password, userFromDatabase.password)) {
+      req.session.userFromDatabase = { email: userFromDatabase.email };
       console.log("password correct");
       res.render("my-overview", { userFromDatabase });
     } else {
@@ -90,8 +91,8 @@ router.post("/login", isLoggedOut, async (req, res) => {
       res.render("auth/login", { errorMessage: "Incorrect password." });
     }
 
-    req.session.userFromDatabase = { email: userFromDatabase.email };
-    res.redirect("/my-overview");
+    //req.session.userFromDatabase = { email: userFromDatabase.email };
+    
   } catch (err) {
     console.log("catch from login");
   }
@@ -129,7 +130,7 @@ router.post("/createQuestion", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// View questons get route
+// View questions get route
 router.get("/view-questions", isLoggedIn, (req, res, next) => {
   Question.find()
     .then((questionsFromDb) => {
@@ -173,17 +174,49 @@ router.post("/update/:questionId/delete", isLoggedIn, (req, res, next) => {
 
 router.get("/play", isLoggedIn, async (req, res, next) => {
   try {
+    // use a mongodb not in query written as $nin
+
     const questionFromDb = await Question.find();
-    const randomIndex = Math.floor(Math.random() * questionFromDb.length);
+
+
+    // const userEmail = req.session.userFromDatabase.email;
+    // const userId = await User.findOne({email:userEmail});
+    // const questionsUserHasAnswered = userId.answeredQuestions;
+
+    // if( questionsUserHasAnswered.include(questionFromDb)){
+    
+      
+    // }else{
+    //   const randomIndex = Math.floor(Math.random() * questionFromDb.length);
+
+    // const randomQuestion = questionFromDb[randomIndex];
+
+    // const answerArr = [randomQuestion.correct, randomQuestion.false1, randomQuestion.false2, randomQuestion.false3];
+    // // console.log('answers',answerArr);
+
+    // const answersRandomized = answerArr.sort(() => Math.random() - 0.5);
+    //  console.log(randomQuestion);
+    // // console.log(answersRandomized);
+    // res.render("questions/play", { randomQuestion, answersRandomized })
+    // }
+
+    //
+const randomIndex = Math.floor(Math.random() * questionFromDb.length);
+
     const randomQuestion = questionFromDb[randomIndex];
 
     const answerArr = [randomQuestion.correct, randomQuestion.false1, randomQuestion.false2, randomQuestion.false3];
     // console.log('answers',answerArr);
 
     const answersRandomized = answerArr.sort(() => Math.random() - 0.5);
-    // console.log(answerArr);
+     console.log(randomQuestion);
     // console.log(answersRandomized);
     res.render("questions/play", { randomQuestion, answersRandomized });
+
+
+    
+  
+   
   } catch (error) {
     console.log("could not get description from db to /play", error);
   }
@@ -191,11 +224,24 @@ router.get("/play", isLoggedIn, async (req, res, next) => {
 
 router.get("/test/:questionId/:answer", isLoggedIn, async (req, res) => {
   const { questionId, answer } = req.params;
-  console.log("made it");
+
+  const userEmail = req.session.userFromDatabase.email;
+  const tempUserId = await User.findOne({email:userEmail});
+  const userId= tempUserId._id.toString();
+
+  //console.log('user email ',userEmail, 'userId', userId._id.toString(), req.session.userFromDatabase);
+
   try {
     const findQuestion = await Question.findById(questionId);
+    console.log('find question',findQuestion);
 
     if (findQuestion.correct === answer) {
+    //find user model and push the questionID to the array answeredQuestion
+     let result = await User.findByIdAndUpdate(userId, { $push :{answeredQuestions:questionId}},{new:true});
+
+
+      console.log('question id',questionId, 'result', result);
+      
       res.redirect("/correct");
     } else {
       res.redirect("/wrong");
@@ -204,6 +250,12 @@ router.get("/test/:questionId/:answer", isLoggedIn, async (req, res) => {
     console.log(error, "finding question went wrong");
   }
 });
+
+// router.post("/test/:questionId/:answer", isLoggedIn, async (req, res) => {
+//   const userId = req.session.userFromDatabase._id;
+//   console.log('user id ',userId);
+// });
+
 
 router.get(`/correct`, isLoggedIn, (req, res) => {
   res.render(`questions/correct`);
