@@ -51,8 +51,30 @@ router.post("/signup", isLoggedOut, async (req, res, next) => {
   }
 });
 
-router.get("/my-overview", isLoggedIn, (req, res, next) => {
-  res.render("my-overview");
+router.get("/my-overview", isLoggedIn, async (req, res, next) => {
+  const userEmail = req.session.userFromDatabase.email;
+  const tempUserId = await User.findOne({email:userEmail});
+  //const userId= tempUserId;
+  const questionsUserHasAnsweredId = tempUserId.answeredQuestions; 
+ 
+  //console.log('user questions',questionsUserHasAnswered)
+  try{
+    const questionArr =[];
+  for(let i=0; i<questionsUserHasAnsweredId.length; i++){
+    let questionsUserHasAnswered = questionsUserHasAnsweredId[i]._id.toString();
+    let questionModelFromUser = await Question.findById(questionsUserHasAnswered)
+    questionArr.push(questionModelFromUser);
+  }
+
+  res.render("my-overview", {questions:questionArr});
+  }catch(error){
+    console.log('error getting the questions to overview',error )
+  }
+
+  
+  
+
+  
 });
 
 router.get("/login", isLoggedOut, (req, res, next) => {
@@ -67,7 +89,7 @@ router.get("/login", isLoggedOut, (req, res, next) => {
 router.post("/login", isLoggedOut, async (req, res) => {
   // get info from form
   const { email, password } = req.body;
-  console.log("req.body is:", req.body);
+  //console.log("req.body is:", req.body);
 
   if (email === "" || password === "") {
     res.render("auth/login", {
@@ -77,7 +99,7 @@ router.post("/login", isLoggedOut, async (req, res) => {
   }
 
   const userFromDatabase = await User.findOne({ email });
-  console.log("user from database: ", userFromDatabase);
+  //console.log("user from database: ", userFromDatabase);
   try {
     if (!userFromDatabase) {
       console.log("email or password incorrect");
@@ -85,7 +107,22 @@ router.post("/login", isLoggedOut, async (req, res) => {
     } else if (bcryptjs.compareSync(password, userFromDatabase.password)) {
       req.session.userFromDatabase = { email: userFromDatabase.email };
       console.log("password correct");
-      res.render("my-overview", { userFromDatabase });
+
+      const userEmail = req.session.userFromDatabase.email;
+  const tempUserId = await User.findOne({email:userEmail});
+  //const userId= tempUserId;
+  const questionsUserHasAnsweredId = tempUserId.answeredQuestions; 
+ 
+  //console.log('user questions',questionsUserHasAnswered)
+  
+    const questionArr =[];
+  for(let i=0; i<questionsUserHasAnsweredId.length; i++){
+    let questionsUserHasAnswered = questionsUserHasAnsweredId[i]._id.toString();
+    let questionModelFromUser = await Question.findById(questionsUserHasAnswered)
+    questionArr.push(questionModelFromUser);}
+  
+
+      res.render("my-overview", { userFromDatabase, questions:questionArr});
     } else {
       console.log("only password incorrect");
       res.render("auth/login", { errorMessage: "Incorrect password." });
@@ -96,7 +133,7 @@ router.post("/login", isLoggedOut, async (req, res) => {
   } catch (err) {
     console.log("catch from login");
   }
-  console.log("SESSION =====> ", req.session);
+  //console.log("SESSION =====> ", req.session);
 });
 
 //get question route
@@ -134,7 +171,7 @@ router.post("/createQuestion", isLoggedIn, async (req, res, next) => {
 router.get("/view-questions", isLoggedIn, (req, res, next) => {
   Question.find()
     .then((questionsFromDb) => {
-      console.log("retrieved questions", questionsFromDb);
+     // console.log("retrieved questions", questionsFromDb);
       res.render("questions/view-questions", { questions: questionsFromDb });
     })
     .catch((error) => {
