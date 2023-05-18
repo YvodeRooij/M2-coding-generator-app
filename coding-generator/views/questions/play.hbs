@@ -1,0 +1,39 @@
+<div id="playArea">
+
+
+<h1>Play</h1>
+<h2>Choose the correct answer!</h2>
+
+<div id="description">
+    <h1 id="descriptionText">{{randomQuestion.description}}</h1>
+    
+
+</div>
+<div id="answers">
+    <div id="answer1">
+        <form action="/test/{{randomQuestion._id}}/{{answersRandomized.[0]}}" method="get">    
+
+<button class="btn btn-outline-success" id="button1" >{{answersRandomized.[0]}}</button>
+
+</form>
+
+</div>
+<div id="answer2">
+    <form action="/test/{{randomQuestion._id}}/{{answersRandomized.[1]}}" method="get"> 
+<button class="btn btn-outline-success" id="button2">{{answersRandomized.[1]}}</button>
+    </form>
+</div>
+
+<div id="answer3">
+    <form action="/test/{{randomQuestion._id}}/{{answersRandomized.[2]}}" method="get"> 
+<button class="btn btn-outline-success" id="button3">{{answersRandomized.[2]}}</button>
+    </form>
+</div>
+<div id="answer4">
+    <form action="/test/{{randomQuestion._id}}/{{answersRandomized.[3]}}" method="get"> 
+<button class="btn btn-outline-success" id="button4">{{answersRandomized.[3]}}</button>
+    </form>
+</div>
+
+</div>
+</div>

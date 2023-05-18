@@ -17,6 +17,11 @@ const userSchema = new Schema(
     admin: {
       type: Boolean,
     },
+    answeredQuestions: 
+       [{type: Schema.Types.ObjectId, ref:"Question"}]
+      
+    
+  
   },
   {
     timestamps: true,
