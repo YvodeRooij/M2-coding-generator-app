@@ -12,31 +12,31 @@ h1 {
   color: 15px;
 }
 
-#navbarNav ul{
+#navbarNav ul {
   display: flex;
-  
+
   align-items: center;
 }
-#logout-form{
+#logout-form {
   display: flex;
   align-items: center;
 }
-#logout-form button{
+#logout-form button {
   display: flex;
   align-items: center;
   border: none;
 }
 
-#playArea{
+#playArea {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-#playArea button{
+#playArea button {
   background-color: aliceblue;
 }
-#playArea button:hover{
-  background-color: green
+#playArea button:hover {
+  background-color: green;
 }
 
 #description {
@@ -92,7 +92,7 @@ h1 {
 #answer4 {
   width: 200px;
   height: 75px;
-  
+
   border-radius: 6px;
   margin-right: 2px;
   display: flex;
@@ -101,25 +101,23 @@ h1 {
 }
 
 #questioneer {
-display: flex;
-justify-content: center;
-align-items: center;
-flex-direction: column;
-margin-top: 10px;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 10px;
 }
 
-#questioneer div{
+#questioneer div {
   display: flex;
   background-color: aliceblue;
-  margin: 10px ;
-  }
+  margin: 10px;
+}
 
-#questioneer button{
-display: flex;
-justify-content: center;
-align-items: center;
-
+#questioneer button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #view-questions {
@@ -129,7 +127,28 @@ align-items: center;
   align-items: center;
 }
 
-#correctBox{
+#correctBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80vw;
+  height: 250px;
+  border-style: solid;
+  border-radius: 6px;
+  box-shadow: 0 0 10px 2px;
+  text-align: center;
+  margin: 10px;
+  background-color: aliceblue;
+}
+
+#correctBox h1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#falseBox {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -144,28 +163,7 @@ align-items: center;
   background-color: aliceblue;
 }
 
-#correctBox h1{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-#falseBox{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 700px;
-  height: 250px;
-  border-style: solid;
-  border-radius: 6px;
-  box-shadow: 0 0 10px 2px;
-  text-align: center;
-  margin: 10px;
-  background-color: aliceblue;
-}
-
-#continuePlay{
+#continuePlay {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -179,7 +177,7 @@ align-items: center;
   border-radius: 10px;
 }
 
-#view-questions div{
+#view-questions div {
   display: flex;
   justify-content: center;
   background-color: aliceblue;
@@ -210,10 +208,9 @@ align-items: center;
   text-align: center;
   margin: 10px;
   padding: 5px;
-  
 }
 
-#signup{
+#signup {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -224,11 +221,8 @@ align-items: center;
   box-shadow: 0 0 10px 2px;
   text-align: center;
   margin: 10px;
-  padding: 5px; 
-  
+  padding: 5px;
 }
-#signup button{
+#signup button {
   margin-top: 10px;
-
 }
-
