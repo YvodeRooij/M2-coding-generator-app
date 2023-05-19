@@ -26,13 +26,25 @@ generateBtn.addEventListener("click", async () => {
     // Set the generated answer in the correct area
     correctArea.value = answerResponse.data.correct;
 
-    const incorrectAnswers1 = await axios.post("/api/generate-false-answer", { question: questionResponse.data.description });
+    const incorrectAnswers1 = await axios.post("/api/generate-false-answer", {
+      question: questionResponse.data.description,
+      correct: answerResponse.data.correct,
+    });
     incorrectArea1.value = incorrectAnswers1.data.incorrect1;
 
-    const incorrectAnswers2 = await axios.post("/api/generate-false-answer", { question: questionResponse.data.description });
+    const incorrectAnswers2 = await axios.post("/api/generate-false-answer2", {
+      question: questionResponse.data.description,
+      correct: answerResponse.data.correct,
+      incorrect1: incorrectAnswers1.data.incorrect1,
+    });
     incorrectArea2.value = incorrectAnswers2.data.incorrect2;
 
-    const incorrectAnswers3 = await axios.post("/api/generate-false-answer", { question: questionResponse.data.description });
+    const incorrectAnswers3 = await axios.post("/api/generate-false-answer3", {
+      question: questionResponse.data.description,
+      correct: answerResponse.data.correct,
+      incorrect1: incorrectAnswers1.data.incorrect1,
+      incorrect2: incorrectAnswers2.data.incorrect2,
+    });
     incorrectArea3.value = incorrectAnswers3.data.incorrect3;
   } catch (err) {
     console.log("error when getting API data", err);
